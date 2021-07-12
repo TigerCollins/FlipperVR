@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 6868573942439511140}
   - component: {fileID: 7594807228683161237}
   - component: {fileID: 3763809297442583002}
-  - component: {fileID: 628795775573858249}
   - component: {fileID: 2360383208582173061}
   m_Layer: 0
   m_Name: Icon
@@ -59,13 +58,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4326449765589403943}
-  m_LocalRotation: {x: 0.58506316, y: 0.397116, z: -0.397116, w: 0.58506316}
+  m_LocalRotation: {x: 0.58109766, y: 0.40289643, z: -0.40289643, w: 0.58109766}
   m_LocalPosition: {x: 0, y: 0.535, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 5498598092649581627}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 13.88, z: -54.454}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -69.47}
 --- !u!33 &7594807228683161237
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -116,20 +115,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &628795775573858249
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4326449765589403943}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &2360383208582173061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11727,7 +11712,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 991
+  m_VersionIndex: 997
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

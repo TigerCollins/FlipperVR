@@ -18,9 +18,10 @@ public class FollowCam : MonoBehaviour
     void Update()
     {
         lookPos = gameCamera.position - transform.position;
-        lookPos.x = 0;
-        lookPos.z = 0;
+       // lookPos.x = 90;
+        lookPos.y = -90;
+        //lookPos.z = 0;
         var rotation = Quaternion.LookRotation(lookPos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 50);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation,1);
     }
 }
