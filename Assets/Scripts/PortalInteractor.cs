@@ -83,7 +83,7 @@ public class PortalInteractor : XRBaseInteractable
 
     private void Update()
     {
-        if (teleportVisualHelper.isSelectingPortal == false && previousSelectionState != teleportVisualHelper.isSelectingPortal)
+        if (teleportVisualHelper.isSelectingPortal == false && previousSelectionState != teleportVisualHelper.isSelectingPortal || !IsTriggerPressed)
         {
             HidePortalOutline();
            
