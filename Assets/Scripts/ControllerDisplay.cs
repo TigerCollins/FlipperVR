@@ -21,6 +21,8 @@ public class ControllerDisplay : MonoBehaviour
     [SerializeField]
     DefaultScheme defaultSchemeDominant;
 
+ //   [Header("Portal Usage")]
+
     private void Start()
     {
         if(transform.parent.parent.TryGetComponent(out ControllerDetails controllerDetails))
