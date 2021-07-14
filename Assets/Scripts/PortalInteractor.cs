@@ -7,6 +7,8 @@ using UnityEngine.XR.Interaction.Toolkit.Inputs;
 public class PortalInteractor : XRBaseInteractable
 {
     [SerializeField]
+    internal TeleportManager teleportManager;
+    [SerializeField]
     TeleportVisualHelper teleportVisualHelper;
     [SerializeField]
     Outline portalOutline;
@@ -18,6 +20,8 @@ public class PortalInteractor : XRBaseInteractable
     XRInteractorLineVisual lineVisual;
     [SerializeField]
     InputActionProperty m_CustomTeleport;
+    [SerializeField]
+    TeleportManager.PortalLocation targetPortalOverride = TeleportManager.PortalLocation.Null;
 
     [Space(5)]
     [SerializeField]
@@ -53,6 +57,7 @@ public class PortalInteractor : XRBaseInteractable
         m_CustomTeleport.action.canceled += CancelTeleport;
         m_CustomTeleport.action.canceled += TriggerPressed;
         previousSelectionState = teleportVisualHelper.isSelectingPortal;
+        teleportManager = FindObjectOfType<TeleportManager>();
         if (portalOutline == null)
         {
             if (transform.parent.TryGetComponent(out Outline outline))
@@ -116,13 +121,19 @@ public class PortalInteractor : XRBaseInteractable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "Player")
+        teleportManager.Teleport(collision.gameObject);
+        if(targetPortalOverride != TeleportManager.PortalLocation.Null)
+        {
+            teleportManager.ChangeTargetPortal(targetPortalOverride);
+        }
+        if (collision.transform.tag == "Player")
         {
             onPlayerInteract.Invoke();
         }
 
         else
         {
+            
             onObjectInteract.Invoke();
         }
       
