@@ -293,6 +293,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21378022}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &80124996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1545715796177192053, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
+  m_PrefabInstance: {fileID: 1545715796254742646}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &80124999
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80124996}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000001, y: 2.2204468e-16, z: 10.000004}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &176035214
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,10 +486,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 0.06
+  m_Height: 0.06
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.04, z: 0}
 --- !u!54 &176035221
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1539,15 +1557,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMode: 1
+  playerXRRig: {fileID: 817794123}
   targetPortal: 5
   canTeleportPlayer: 1
   canTeleportObject: 1
-  portalRoomTeleportPoint: {fileID: 0}
-  labTeleportPoint: {fileID: 0}
-  parkTeleportPoint: {fileID: 0}
-  rooftopTeleportPoint: {fileID: 0}
-  spaceTeleportPoint: {fileID: 0}
-  debugModeTeleportPoint: {fileID: 1629728001}
+  portalRoomTeleportPointObject: {fileID: 0}
+  labTeleportPointObject: {fileID: 0}
+  parkTeleportPointObject: {fileID: 0}
+  rooftopTeleportPointObject: {fileID: 0}
+  spaceTeleportPointObject: {fileID: 0}
+  debugModeTeleportPointObject: {fileID: 1629728001}
+  portalRoomTeleportPointPlayer: {fileID: 0}
+  labTeleportPointPlayer: {fileID: 0}
+  parkTeleportPointPlayer: {fileID: 0}
+  rooftopTeleportPointPlayer: {fileID: 0}
+  spaceTeleportPointPlayer: {fileID: 0}
+  debugModeTeleportPointPlayer: {fileID: 677661463}
 --- !u!1 &444206694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,6 +1793,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444206694}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &450212835 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1545715796088308427, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
+  m_PrefabInstance: {fileID: 808420074}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &450212836
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450212835}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000001, y: 2.2204468e-16, z: 10.000004}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &539357092
 GameObject:
   m_ObjectHideFlags: 0
@@ -2232,6 +2275,88 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1545715796088308405, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
   m_PrefabInstance: {fileID: 1545715796254742646}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &677661462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 677661463}
+  - component: {fileID: 677661465}
+  - component: {fileID: 677661464}
+  m_Layer: 0
+  m_Name: Player Teleport Point (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &677661463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677661462}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0, y: -3.01, z: 2.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1366712086}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!23 &677661464
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677661462}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &677661465
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677661462}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &694349098
 GameObject:
   m_ObjectHideFlags: 0
@@ -2720,7 +2845,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1545715796088308424, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
 --- !u!1 &813157084
 GameObject:
@@ -3457,7 +3583,7 @@ GameObject:
   - component: {fileID: 973767773}
   m_Layer: 0
   m_Name: LeftHand Controller
-  m_TagString: Untagged
+  m_TagString: Controller
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4240,6 +4366,25 @@ Transform:
   m_Father: {fileID: 817794123}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1101347360 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1545715796088308427, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
+  m_PrefabInstance: {fileID: 1366712085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1101347361
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101347360}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1504643496}
 --- !u!1 &1102300540
 GameObject:
   m_ObjectHideFlags: 0
@@ -4834,7 +4979,8 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1545715796088308424, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
 --- !u!4 &1366712086 stripped
 Transform:
@@ -5058,7 +5204,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2994778
+  m_Name: pb_Mesh-1236
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5846,7 +5992,7 @@ GameObject:
   - component: {fileID: 1629728004}
   - component: {fileID: 1629728003}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Object Teleport Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6049,7 +6195,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2511954
+  m_Name: pb_Mesh-1262
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6344,7 +6490,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-2511930
+  m_Name: pb_Mesh-1208
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6519,7 +6665,7 @@ GameObject:
   - component: {fileID: 2020565172}
   m_Layer: 0
   m_Name: RightHand Controller
-  m_TagString: Untagged
+  m_TagString: Controller
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7812,6 +7958,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 416036749}
     - target: {fileID: 94592005, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 94592005, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 94592005, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
       propertyPath: onObjectInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1702539455}
@@ -7819,6 +7973,30 @@ PrefabInstance:
       propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1702539455}
+    - target: {fileID: 94592005, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 416036751}
+    - target: {fileID: 94592005, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 94592005, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Teleport
+      objectReference: {fileID: 0}
+    - target: {fileID: 94592005, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TeleportManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 94592005, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 817794121}
+    - target: {fileID: 94592005, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
+      propertyPath: onPlayerInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 674164065, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
       propertyPath: bakeKeys.Array.data[0]
       value: 
@@ -7899,5 +8077,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1545715796177192051, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5a8bb1ec2d076814daf4add5f0eeb5c3, type: 3}

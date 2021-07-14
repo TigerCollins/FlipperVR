@@ -126,12 +126,12 @@ public class PortalInteractor : XRBaseInteractable
         {
             teleportManager.ChangeTargetPortal(targetPortalOverride);
         }
-        if (collision.transform.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             onPlayerInteract.Invoke();
         }
 
-        else
+        else if(!collision.gameObject.CompareTag("Controller"))
         {
             
             onObjectInteract.Invoke();
