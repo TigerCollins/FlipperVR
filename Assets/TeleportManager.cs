@@ -8,7 +8,7 @@ public class TeleportManager : MonoBehaviour
     [SerializeField]
     bool debugMode = false;
     [SerializeField]
-    Transform playerXRRig;
+    internal Transform playerXRRig;
 
     [Header("Capabilities")]
     [SerializeField]
@@ -18,19 +18,11 @@ public class TeleportManager : MonoBehaviour
     [SerializeField]
     bool canTeleportObject = true;
 
-    [Header("Portal Link - Object")]
-
+    [Header("Portal Interactors")]
     [SerializeField]
-    Transform portalRoomTeleportPointObject;
+    internal PortalInteractor portalRoomInteractor;
     [SerializeField]
-    Transform labTeleportPointObject, parkTeleportPointObject, rooftopTeleportPointObject, spaceTeleportPointObject, debugModeTeleportPointObject;
-
-    [Header("Portal Link - Player")]
-
-    [SerializeField]
-    Transform portalRoomTeleportPointPlayer;
-    [SerializeField]
-    Transform labTeleportPointPlayer, parkTeleportPointPlayer, rooftopTeleportPointPlayer, spaceTeleportPointPlayer, debugModeTeleportPointPlayer;
+    internal PortalInteractor labPortalInteractor, parkPortalInteractor, rooftopPortalInteractor, spacePortalInteractor, debugModePortalInteractor;
 
     public enum PortalLocation
     {
@@ -42,6 +34,8 @@ public class TeleportManager : MonoBehaviour
         DebugMode,
         Null
     }
+
+   
 
     public void ChangeTargetPortal(PortalLocation newTargetPortal)
     {
@@ -75,10 +69,10 @@ public class TeleportManager : MonoBehaviour
             switch (targetPortal)
             {
                 case PortalLocation.portalRoom:
-                    if (portalRoomTeleportPointPlayer != null)
+                    if (portalRoomInteractor.playerTeleportPoint != null)
                     {
-                        teleportObject.transform.position = portalRoomTeleportPointPlayer.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * portalRoomTeleportPointPlayer.transform.rotation;
+                        teleportObject.transform.position = portalRoomInteractor.playerTeleportPoint.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * portalRoomInteractor.playerTeleportPoint.transform.rotation;
                     }
 
                     else
@@ -88,10 +82,10 @@ public class TeleportManager : MonoBehaviour
 
                     break;
                 case PortalLocation.Lab:
-                    if (labTeleportPointPlayer != null)
+                    if (labPortalInteractor.playerTeleportPoint != null)
                     {
-                        teleportObject.transform.position = labTeleportPointPlayer.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * labTeleportPointPlayer.transform.rotation;
+                        teleportObject.transform.position = labPortalInteractor.playerTeleportPoint.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * labPortalInteractor.playerTeleportPoint.transform.rotation;
                     }
 
                     else
@@ -101,10 +95,10 @@ public class TeleportManager : MonoBehaviour
 
                     break;
                 case PortalLocation.Park:
-                    if (parkTeleportPointPlayer != null)
+                    if (parkPortalInteractor.playerTeleportPoint != null)
                     {
-                        teleportObject.transform.position = parkTeleportPointPlayer.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * parkTeleportPointPlayer.transform.rotation;
+                        teleportObject.transform.position = parkPortalInteractor.playerTeleportPoint.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * parkPortalInteractor.playerTeleportPoint.transform.rotation;
                     }
 
                     else
@@ -114,10 +108,10 @@ public class TeleportManager : MonoBehaviour
 
                     break;
                 case PortalLocation.Rooftop:
-                    if (rooftopTeleportPointPlayer != null)
+                    if (rooftopPortalInteractor.playerTeleportPoint != null)
                     {
-                        teleportObject.transform.position = rooftopTeleportPointPlayer.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * rooftopTeleportPointPlayer.transform.rotation;
+                        teleportObject.transform.position = rooftopPortalInteractor.playerTeleportPoint.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * rooftopPortalInteractor.playerTeleportPoint.transform.rotation;
                     }
 
                     else
@@ -127,10 +121,10 @@ public class TeleportManager : MonoBehaviour
 
                     break;
                 case PortalLocation.Space:
-                    if (spaceTeleportPointPlayer != null)
+                    if (spacePortalInteractor != null)
                     {
-                        teleportObject.transform.position = spaceTeleportPointPlayer.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * spaceTeleportPointPlayer.transform.rotation;
+                        teleportObject.transform.position = spacePortalInteractor.transform.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * spacePortalInteractor.transform.rotation;
                     }
 
                     else
@@ -140,10 +134,10 @@ public class TeleportManager : MonoBehaviour
 
                     break;
                 case PortalLocation.DebugMode:
-                    if (debugModeTeleportPointPlayer != null)
+                    if (debugModePortalInteractor.playerTeleportPoint != null)
                     {
-                        teleportObject.transform.position = debugModeTeleportPointPlayer.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * debugModeTeleportPointPlayer.transform.rotation;
+                        teleportObject.transform.position = debugModePortalInteractor.playerTeleportPoint.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * debugModePortalInteractor.playerTeleportPoint.transform.rotation;
                     }
 
                     else
@@ -154,8 +148,8 @@ public class TeleportManager : MonoBehaviour
                     break;
                 default:
                     Debug.LogError("Could not find any teleporter reference");
-                    relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * debugModeTeleportPointPlayer.transform.rotation;
-                break;
+                    relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * debugModePortalInteractor.playerTeleportPoint.transform.rotation;
+                    break;
             }
 
         //  rigidbody.velocity = (relativeRotation * rigidbody.velocity * 2);
@@ -179,10 +173,10 @@ public class TeleportManager : MonoBehaviour
             switch (targetPortal)
             {
                 case PortalLocation.portalRoom:
-                    if (portalRoomTeleportPointObject != null)
+                    if (portalRoomInteractor.objectTeleportPoint != null)
                     {
-                        teleportObject.transform.position = portalRoomTeleportPointObject.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * portalRoomTeleportPointObject.transform.rotation;
+                        teleportObject.transform.position = portalRoomInteractor.objectTeleportPoint.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * portalRoomInteractor.objectTeleportPoint.transform.rotation;
                     }
 
                     else
@@ -192,10 +186,10 @@ public class TeleportManager : MonoBehaviour
 
                     break;
                 case PortalLocation.Lab:
-                    if (labTeleportPointObject != null)
+                    if (labPortalInteractor.objectTeleportPoint != null)
                     {
-                        teleportObject.transform.position = labTeleportPointObject.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * labTeleportPointObject.transform.rotation;
+                        teleportObject.transform.position = labPortalInteractor.objectTeleportPoint.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * labPortalInteractor.objectTeleportPoint.transform.rotation;
                     }
 
                     else
@@ -205,10 +199,10 @@ public class TeleportManager : MonoBehaviour
 
                     break;
                 case PortalLocation.Park:
-                    if (parkTeleportPointObject != null)
+                    if (parkPortalInteractor.objectTeleportPoint != null)
                     {
-                        teleportObject.transform.position = parkTeleportPointObject.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * parkTeleportPointObject.transform.rotation;
+                        teleportObject.transform.position = parkPortalInteractor.objectTeleportPoint.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * parkPortalInteractor.objectTeleportPoint.transform.rotation;
                     }
 
                     else
@@ -218,10 +212,10 @@ public class TeleportManager : MonoBehaviour
 
                     break;
                 case PortalLocation.Rooftop:
-                    if (rooftopTeleportPointObject != null)
+                    if (rooftopPortalInteractor.objectTeleportPoint != null)
                     {
-                        teleportObject.transform.position = rooftopTeleportPointObject.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * rooftopTeleportPointObject.transform.rotation;
+                        teleportObject.transform.position = rooftopPortalInteractor.objectTeleportPoint.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * rooftopPortalInteractor.objectTeleportPoint.transform.rotation;
                     }
 
                     else
@@ -231,10 +225,10 @@ public class TeleportManager : MonoBehaviour
 
                     break;
                 case PortalLocation.Space:
-                    if (spaceTeleportPointObject != null)
+                    if (spacePortalInteractor.objectTeleportPoint != null)
                     {
-                        teleportObject.transform.position = spaceTeleportPointObject.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * spaceTeleportPointObject.transform.rotation;
+                        teleportObject.transform.position = spacePortalInteractor.objectTeleportPoint.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * spacePortalInteractor.objectTeleportPoint.transform.rotation;
                     }
 
                     else
@@ -244,10 +238,10 @@ public class TeleportManager : MonoBehaviour
 
                     break;
                 case PortalLocation.DebugMode:
-                    if (debugModeTeleportPointObject != null)
+                    if (debugModePortalInteractor.objectTeleportPoint != null)
                     {
-                        teleportObject.transform.position = debugModeTeleportPointObject.position;
-                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * debugModeTeleportPointObject.transform.rotation;
+                        teleportObject.transform.position = debugModePortalInteractor.objectTeleportPoint.position;
+                        relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * debugModePortalInteractor.objectTeleportPoint.transform.rotation;
                     }
 
                     else
@@ -258,7 +252,7 @@ public class TeleportManager : MonoBehaviour
                     break;
                 default:
                     Debug.LogError("Could not find any teleporter reference");
-                    relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * debugModeTeleportPointObject.transform.rotation;
+                    relativeRotation = Quaternion.Inverse(teleportObject.transform.rotation) * debugModePortalInteractor.objectTeleportPoint.transform.rotation;
                     break;
             }
            

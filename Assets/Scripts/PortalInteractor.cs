@@ -6,30 +6,49 @@ using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 public class PortalInteractor : XRBaseInteractable
 {
+
+    [Header("Teleportation")]
     [SerializeField]
-    internal TeleportManager teleportManager;
+    TeleportManager.PortalLocation targetPortalOverride = TeleportManager.PortalLocation.Null;
+    [SerializeField]
+    internal Transform objectTeleportPoint;
+    [SerializeField]
+    internal Transform playerTeleportPoint;
+
+    [Header("Script References")]
+    [SerializeField]
+    TeleportManager teleportManager;
     [SerializeField]
     TeleportVisualHelper teleportVisualHelper;
     [SerializeField]
     Outline portalOutline;
     [SerializeField]
-    UnityEvent onPlayerInteract; 
+    XRInteractorLineVisual lineVisual;
+
+    [Header("Teleportation Events")]
+    [SerializeField]
+    UnityEvent onPlayerInteract = new UnityEvent(); 
     [SerializeField]
     UnityEvent onObjectInteract;
-    [SerializeField]
-    XRInteractorLineVisual lineVisual;
+
+
+
+
+
+    [Header("Input")]
     [SerializeField]
     InputActionProperty m_CustomTeleport;
-    [SerializeField]
-    TeleportManager.PortalLocation targetPortalOverride = TeleportManager.PortalLocation.Null;
-
     [Space(5)]
     [SerializeField]
     bool triggerPressedDown;
 
-    bool previousSelectionState;
 
+    //Hidden
+
+    bool previousSelectionState;
     bool wasSelected;
+    AudioSource playerAudioSource;
+
     /// <summary>
     /// The Input System action to use for Position Tracking for this GameObject. Must be a <see cref="Vector3Control"/> Control.
     /// </summary>
@@ -52,12 +71,15 @@ public class PortalInteractor : XRBaseInteractable
 
     protected override void Awake()
     {
-        m_CustomTeleport.action.performed += TriggerPressed ;
+
+        m_CustomTeleport.action.performed += TriggerPressed;
         m_CustomTeleport.action.canceled += AttemptTeleport;
         m_CustomTeleport.action.canceled += CancelTeleport;
         m_CustomTeleport.action.canceled += TriggerPressed;
+        onPlayerInteract.AddListener(delegate { teleportManager.Teleport(teleportManager.playerXRRig.gameObject); });
         previousSelectionState = teleportVisualHelper.isSelectingPortal;
         teleportManager = FindObjectOfType<TeleportManager>();
+        playerAudioSource = FindObjectOfType<AudioSource>();
         if (portalOutline == null)
         {
             if (transform.parent.TryGetComponent(out Outline outline))
@@ -121,20 +143,28 @@ public class PortalInteractor : XRBaseInteractable
 
     private void OnCollisionEnter(Collision collision)
     {
-        teleportManager.Teleport(collision.gameObject);
+       
         if(targetPortalOverride != TeleportManager.PortalLocation.Null)
         {
             teleportManager.ChangeTargetPortal(targetPortalOverride);
         }
+   //    
         if (collision.gameObject.CompareTag("Player"))
         {
             onPlayerInteract.Invoke();
         }
 
-        else if(!collision.gameObject.CompareTag("Controller"))
+        else if(!collision.gameObject.CompareTag("Controller") && collision.gameObject.TryGetComponent(out FlippableObject flippable))
         {
+            if(flippable.timesPickedUp !=0)
+            {
             
-            onObjectInteract.Invoke();
+                teleportManager.Teleport(collision.gameObject);
+                onObjectInteract.Invoke();
+                flippable.timesPickedUp = 0;
+                Debug.Log("hmmm");
+            }
+         
         }
       
     }
@@ -155,8 +185,13 @@ public class PortalInteractor : XRBaseInteractable
 
     void AttemptTeleport(InputAction.CallbackContext context)
     {
-        if(isHovered && lineVisual.enabled)
+       
+        if (isHovered && lineVisual.enabled)
         {
+            if (targetPortalOverride != TeleportManager.PortalLocation.Null)
+            {
+                teleportManager.ChangeTargetPortal(targetPortalOverride);
+            }
             wasSelected = true;
             onPlayerInteract.Invoke();
         }
