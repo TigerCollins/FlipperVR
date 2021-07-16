@@ -25,7 +25,7 @@ public class FlippableObject : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField]
-    float uprightThreshold;
+    float uprightThreshold = .8f;
 
     [Header("Unity Events")]
     [SerializeField]
