@@ -188,12 +188,17 @@ public class PortalInteractor : XRBaseInteractable
        
         if (isHovered && lineVisual.enabled)
         {
+            TeleportManager.PortalLocation originalPortalLocation = teleportManager.targetPortal;
             if (targetPortalOverride != TeleportManager.PortalLocation.Null)
             {
                 teleportManager.ChangeTargetPortal(targetPortalOverride);
             }
             wasSelected = true;
             onPlayerInteract.Invoke();
+            if(originalPortalLocation != teleportManager.targetPortal)
+            {
+                teleportManager.ChangeTargetPortal(originalPortalLocation);
+            }
         }
     }
 

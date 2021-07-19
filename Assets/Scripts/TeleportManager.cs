@@ -12,7 +12,7 @@ public class TeleportManager : MonoBehaviour
 
     [Header("Capabilities")]
     [SerializeField]
-    PortalLocation targetPortal;
+    internal PortalLocation targetPortal;
     [SerializeField]
     bool canTeleportPlayer = true;
     [SerializeField]
