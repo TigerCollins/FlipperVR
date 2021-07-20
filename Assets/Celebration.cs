@@ -23,6 +23,8 @@ public class Celebration : MonoBehaviour
     IEnumerator Coroutine(GameObject toDestroy,VisualEffect effect)
     {
         yield return new WaitForSeconds(timer);
-        Destroy(toDestroy);
+        effect.Stop();
+        yield return new WaitForSeconds(timer );
+        //Destroy(toDestroy);
     }
 }
