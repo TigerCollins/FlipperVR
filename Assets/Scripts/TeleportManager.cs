@@ -63,7 +63,7 @@ public class TeleportManager : MonoBehaviour
 
         else if (canTeleportObject && !teleportObject.CompareTag("Controller"))
         {
-            gameManager.ChangeAreaStats();
+          //  gameManager.ChangeAreaStats();
             TeleportObject(teleportObject);
         }
 

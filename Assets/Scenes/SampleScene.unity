@@ -11435,7 +11435,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28984
+  m_Name: pb_Mesh93672
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11608,6 +11608,7 @@ GameObject:
   - component: {fileID: 416036749}
   - component: {fileID: 416036751}
   - component: {fileID: 416036752}
+  - component: {fileID: 416036753}
   m_Layer: 0
   m_Name: ScriptController
   m_TagString: Untagged
@@ -12053,6 +12054,20 @@ MonoBehaviour:
     customGravity: 0
     customGravityValue: {x: 0, y: -9.81, z: 0}
   currentLocation: 0
+--- !u!114 &416036753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416036745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3c3823de3868147affd3a6e4c5ce02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireworkPrefab: {fileID: 3510132724184998393, guid: 15d5001950d184a4ea9dcab0876819ba, type: 3}
+  timer: 3.5
 --- !u!1 &422293482
 GameObject:
   m_ObjectHideFlags: 0
@@ -27160,14 +27175,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817794121}
-  m_LocalRotation: {x: -0, y: 0.4020245, z: -0, w: 0.9156289}
+  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 54.027, y: -33.598, z: -4.779}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1055814580}
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 47.41, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
 --- !u!114 &817794124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33245,7 +33260,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28988
+  m_Name: pb_Mesh93676
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -36592,7 +36607,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27664
+  m_Name: pb_Mesh92286
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -36971,7 +36986,19 @@ MonoBehaviour:
       m_Calls: []
   onFinishedUpright:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 416036753}
+        m_TargetAssemblyTypeName: Celebration, Assembly-CSharp
+        m_MethodName: CreateFirework
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1421134188}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   didntFinishedUpright:
     m_PersistentCalls:
       m_Calls: []
@@ -37879,7 +37906,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1678
+  m_Name: pb_Mesh-348542
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -41257,7 +41284,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1834
+  m_Name: pb_Mesh-348698
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -44503,7 +44530,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh27784
+  m_Name: pb_Mesh92434
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
