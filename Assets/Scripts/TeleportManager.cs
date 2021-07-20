@@ -9,6 +9,8 @@ public class TeleportManager : MonoBehaviour
     bool debugMode = false;
     [SerializeField]
     internal GameObject playerXRRig;
+    [SerializeField]
+    GameManager gameManager;
 
     [Header("Capabilities")]
     [SerializeField]
@@ -55,11 +57,13 @@ public class TeleportManager : MonoBehaviour
     {
         if (teleportObject.CompareTag("Player") && canTeleportPlayer)
         {
+            gameManager.ChangeAreaStats();
             TeleportPlayer(teleportObject);
         }
 
         else if (canTeleportObject && !teleportObject.CompareTag("Controller"))
         {
+            gameManager.ChangeAreaStats();
             TeleportObject(teleportObject);
         }
 
