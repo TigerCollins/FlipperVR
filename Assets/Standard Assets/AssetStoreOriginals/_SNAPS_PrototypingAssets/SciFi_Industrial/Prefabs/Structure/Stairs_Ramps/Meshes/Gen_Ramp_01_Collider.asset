@@ -7,7 +7,7 @@ Mesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Gen_Ramp_01_Collider
-  serializedVersion: 9
+  serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
     firstByte: 0
@@ -27,6 +27,9 @@ Mesh:
   m_BindPose: []
   m_BoneNameHashes: 
   m_RootBoneNameHash: 0
+  m_BonesAABB: []
+  m_VariableBoneCountWeights:
+    m_Data: 
   m_MeshCompression: 0
   m_IsReadable: 1
   m_KeepVertices: 1
@@ -34,7 +37,7 @@ Mesh:
   m_IndexFormat: 0
   m_IndexBuffer: 0000010002000300040005000600070008000900060008000a000b000c000d000a000c000e000f0010000e0011000f000700120013000800070013001200140015001300120015001600170018001900160018001a001b001c001d001a001c001e001f0020001e0021001f00100021001e0010000f002100220023002400230025002400030005002600050027002600280029002a0029002b002a002c002d002e002d002f002e003000310032003100330032003400350036003500370036000200010038000100390038003a003b003c003b003d003c00
   m_VertexData:
-    serializedVersion: 2
+    serializedVersion: 3
     m_VertexCount: 62
     m_Channels:
     - stream: 0
@@ -155,8 +158,9 @@ Mesh:
   m_BakedTriangleCollisionMesh: 
   m_MeshMetrics[0]: 1
   m_MeshMetrics[1]: 1
-  m_MeshOptimized: 0
+  m_MeshOptimizationFlags: -1
   m_StreamData:
+    serializedVersion: 2
     offset: 0
     size: 0
     path: 

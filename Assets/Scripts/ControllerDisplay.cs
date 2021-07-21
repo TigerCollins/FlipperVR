@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ControllerDisplay : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class ControllerDisplay : MonoBehaviour
     bool isDominantHand;
     [SerializeField]
     bool isLeftHand;
+    [SerializeField]
+    internal TextMeshPro scoreDisplay;
 
     [Space(5)]
 
@@ -20,11 +23,12 @@ public class ControllerDisplay : MonoBehaviour
     DefaultScheme defaultSchemeNonDominant; 
     [SerializeField]
     DefaultScheme defaultSchemeDominant;
-
- //   [Header("Portal Usage")]
+    GameManager gameManager;
+    //   [Header("Portal Usage")]
 
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         if(transform.parent.parent.TryGetComponent(out ControllerDetails controllerDetails))
         {
             isLeftHand = controllerDetails.isLeftHand;
@@ -33,7 +37,7 @@ public class ControllerDisplay : MonoBehaviour
             IsDominanthand = controllerDetails.isDominanthand;
           
         }
-        
+        ChangeHand();
     }
 
     public enum ControlSchemes
@@ -61,20 +65,24 @@ public class ControllerDisplay : MonoBehaviour
         if(isLeftHand && isDominantHand)
         {
             Debug.Log("Left hand is your dominant hand");
+            gameManager.leftController = this;
         }
 
         else if(isLeftHand)
         {
             Debug.Log("Left hand is NOT your dominant hand");
+            gameManager.leftController = this;
         }
 
         else if(!isLeftHand && isDominantHand)
         {
             Debug.Log("Right hand is your dominant hand");
+            gameManager.rightController = this;
         }
         else
         {
             Debug.Log("Right hand is NOT your dominant hand");
+            gameManager.rightController = this;
         }
         OnControlSchemeChange();
     }

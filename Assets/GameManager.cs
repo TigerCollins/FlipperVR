@@ -8,11 +8,22 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TeleportManager teleportManager;
 
+    [Header("Score")]
+    [SerializeField]
+    internal int objectsFlipped;
+    [SerializeField]
+    int currentAreaMultiplier;
+
     [Header("other")]
     [SerializeField]
     AreaDetails[] areaDetails;
     [SerializeField]
     TeleportManager.PortalLocation currentLocation;
+    [Header("Controllers")]
+    [SerializeField]
+    internal ControllerDisplay leftController;
+     [SerializeField]
+    internal ControllerDisplay rightController;
     // Start is called before the first frame update
 
 
@@ -28,9 +39,21 @@ public class GameManager : MonoBehaviour
             if(areaDetails[i].name==teleportManager.targetPortal.ToString())
             {
                 Physics.gravity = areaDetails[i].customGravityValue;
+                currentAreaMultiplier = areaDetails[i].areaMultiplier;
                 break;
             }
         }
+    }
+
+    public void IncreaseScore()
+    {
+        objectsFlipped += 1 * currentAreaMultiplier;
+        NewScore(objectsFlipped);
+    }
+
+    public void NewScore(int score)
+    {
+        rightController.scoreDisplay.text = score.ToString();
     }
 }
 
@@ -38,6 +61,6 @@ public class GameManager : MonoBehaviour
 public class AreaDetails
 {
     public string name;
-    public bool customGravity = false;
     public Vector3 customGravityValue;
+    public int areaMultiplier;
 }
