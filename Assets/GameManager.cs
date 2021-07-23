@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [Header("Script References")]
     [SerializeField]
     TeleportManager teleportManager;
+    [SerializeField]
+    Camera playerCamera;
 
     [Header("Score")]
     [SerializeField]
@@ -40,6 +42,10 @@ public class GameManager : MonoBehaviour
             {
                 Physics.gravity = areaDetails[i].customGravityValue;
                 currentAreaMultiplier = areaDetails[i].areaMultiplier;
+                if(areaDetails[i].desiredSkybox != null)
+                {
+                    RenderSettings.skybox = areaDetails[i].desiredSkybox;
+                }
                 break;
             }
         }
@@ -63,4 +69,5 @@ public class AreaDetails
     public string name;
     public Vector3 customGravityValue;
     public int areaMultiplier;
+    public Material desiredSkybox;
 }
