@@ -124,7 +124,11 @@ public class FlippableObject : MonoBehaviour
 
     public bool IsUpright()
     {
-        return transform.up.y > uprightThreshold;/*say 0.6 ?*/
+        if(rb.isKinematic == false)
+        {
+            return transform.up.y > uprightThreshold;/*say 0.6 ?*/
+        }
+        return false;
     }
 
     void ResetFlip()

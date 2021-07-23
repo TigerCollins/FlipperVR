@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class TeleportManager : MonoBehaviour
 {
+
     [SerializeField]
     bool debugMode = false;
     [SerializeField]
@@ -26,6 +28,16 @@ public class TeleportManager : MonoBehaviour
     [SerializeField]
     internal PortalInteractor labPortalInteractor, parkPortalInteractor, rooftopPortalInteractor, spacePortalInteractor, debugModePortalInteractor;
 
+    [Header("SDF Interactors")]
+    [SerializeField]
+    internal Texture3D portalRoomDistanceField;
+    [SerializeField]
+    internal Texture3D labPortalDistanceField, parkPortalDistanceField, rooftopPortalDistanceField, spacePortalDistanceField, debugModeDistanceField;
+    [Space(10)]
+    [SerializeField]
+    UnityEvent onPortalChange;
+
+    PortalLocation previousPortal;
     public enum PortalLocation
     {
         portalRoom,
@@ -41,14 +53,16 @@ public class TeleportManager : MonoBehaviour
 
     public void ChangeTargetPortal(PortalLocation newTargetPortal)
     {
-
+        Debug.LogWarning("oh fucc");
+        previousPortal = targetPortal;
         targetPortal = newTargetPortal;
         Debug.Log("Changed target portal to " + newTargetPortal.ToString());
     }
 
     public void ChangeTargetPortalString(string newTargetPortal)
     {
-
+        Debug.LogWarning("oh fucc1");
+        previousPortal = targetPortal;
         targetPortal = (PortalLocation)System.Enum.Parse(typeof(PortalLocation), newTargetPortal); ;
         Debug.Log("Changed target portal to " + newTargetPortal.ToString());
     }
@@ -57,14 +71,16 @@ public class TeleportManager : MonoBehaviour
     {
         if (teleportObject.CompareTag("Player") && canTeleportPlayer)
         {
-            gameManager.ChangeAreaStats();
+            
             TeleportPlayer(teleportObject);
         }
 
         else if (canTeleportObject && !teleportObject.CompareTag("Controller"))
         {
-          //  gameManager.ChangeAreaStats();
+            //  gameManager.ChangeAreaStats();
+           
             TeleportObject(teleportObject);
+
         }
 
         else
@@ -166,7 +182,7 @@ public class TeleportManager : MonoBehaviour
         //  rigidbody.velocity = (relativeRotation * rigidbody.velocity * 2);
         Quaternion rot180degrees = Quaternion.Euler(-teleportObject.transform.rotation.eulerAngles);
             teleportObject.transform.rotation = relativeRotation;
-
+        gameManager.ChangeAreaStats();
 
 
         if (debugMode)
@@ -179,7 +195,7 @@ public class TeleportManager : MonoBehaviour
     {
         if (teleportObject.TryGetComponent(out Rigidbody rigidbody))
         {
-            
+        
             Quaternion relativeRotation = Quaternion.identity;
             switch (targetPortal)
             {
@@ -274,6 +290,25 @@ public class TeleportManager : MonoBehaviour
         if (debugMode)
         {
             Debug.Log("Teleported " + teleportObject.name + " to the " + targetPortal.ToString());
+        }
+    }
+
+    private void Update()
+    {
+        if(targetPortal != previousPortal)
+        {
+            portalRoomInteractor.SetPortalTitle();
+            spacePortalInteractor.SetPortalTitle();
+            if (rooftopPortalInteractor != null)
+            {
+                rooftopPortalInteractor.SetPortalTitle();
+            }
+            if(parkPortalInteractor!=null)
+            {
+                parkPortalInteractor.SetPortalTitle();
+
+            }
+            labPortalInteractor.SetPortalTitle();
         }
     }
 }
