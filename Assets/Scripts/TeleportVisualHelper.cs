@@ -34,7 +34,7 @@ public class TeleportVisualHelper : MonoBehaviour
     [SerializeField]
     Gradient invalidGradient;
 
-    [HideInInspector]
+    //[HideInInspector]
     public bool isSelectingPortal;
 
 
