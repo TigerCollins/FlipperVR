@@ -1,5 +1,5 @@
 # Macro for Unity YAML-based asset files.
-[attr]unityyaml -text merge=unityyamlmerge diff
+[attr]unityyaml -text merge=unityyamlmerge diff eol=lf
 
 # Macro for all binary files that should use Git LFS.
 [attr]lfs -text filter=lfs diff=lfs merge=lfs
@@ -43,6 +43,9 @@
 *-[Tt]errain.asset -unityyaml lfs
 # Note: Unity navmesh assets must have "-NavMesh" suffix.
 *-[Nn]av[Mm]esh.asset -unityyaml lfs
+# Note: Unity terrain assets must have "-Terrain" suffix.
+*-[Ll]ighting[Dd]ata.asset -unityyaml lfs
+
 
 # Image
 *.jpg lfs
