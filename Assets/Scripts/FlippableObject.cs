@@ -11,6 +11,8 @@ public class FlippableObject : MonoBehaviour
     Rigidbody rb;
 
     [SerializeField]
+    TeleportManager teleportManager;
+    [SerializeField]
     bool hasLanded;
     [SerializeField]
     bool isUpright;
@@ -27,6 +29,16 @@ public class FlippableObject : MonoBehaviour
     [SerializeField]
     float uprightThreshold = .8f;
 
+    [Header("Audio")]
+    [SerializeField]
+    float minPitch = .7f;
+    [SerializeField]
+    float maxPitch = 1.2f;
+    [SerializeField]
+    AudioSource audioSource;
+    [SerializeField]
+    AudioClip fireWorks;
+
     [Header("Unity Events")]
     [SerializeField]
     UnityEvent onStartMovement;
@@ -37,7 +49,7 @@ public class FlippableObject : MonoBehaviour
     [SerializeField]
     UnityEvent didntFinishedUpright;
 
-
+   
 
     //hidden
     bool previousLandedState;
@@ -52,6 +64,25 @@ public class FlippableObject : MonoBehaviour
         {
             rb = newRB;
         }
+
+        if (TryGetComponent(out AudioSource newAudio))
+        {
+            audioSource = newAudio;
+        }
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(teleportManager.currentPortal != TeleportManager.PortalLocation.Space && !collision.gameObject.CompareTag("Controller"))
+        {
+            PlaySound();
+        }
+    }
+    void PlaySound()
+    {
+        audioSource.pitch = Random.Range(minPitch, maxPitch);
+        audioSource.Play();
     }
 
     private void Update()
@@ -91,6 +122,7 @@ public class FlippableObject : MonoBehaviour
             if (isUpright && timesFlipped !=0)
             {
                 onFinishedUpright.Invoke();
+                audioSource.PlayOneShot(fireWorks);
         
             }
 

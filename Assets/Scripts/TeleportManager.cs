@@ -11,8 +11,11 @@ public class TeleportManager : MonoBehaviour
     bool debugMode = false;
     [SerializeField]
     internal GameObject playerXRRig;
+    public GameManager gameManager;
     [SerializeField]
-    GameManager gameManager;
+    GameUI gameUI;
+    [SerializeField]
+    NPCHeadLook nPCHeadLook;
 
     [Header("Capabilities")]
     [SerializeField]
@@ -38,6 +41,10 @@ public class TeleportManager : MonoBehaviour
     UnityEvent onPortalChange;
 
     PortalLocation previousPortal;
+    [HideInInspector]
+    public PortalLocation originalPortal;
+    [HideInInspector]
+    public PortalLocation currentPortal = PortalLocation.portalRoom;
     public enum PortalLocation
     {
         portalRoom,
@@ -53,7 +60,6 @@ public class TeleportManager : MonoBehaviour
 
     public void ChangeTargetPortal(PortalLocation newTargetPortal)
     {
-        Debug.LogWarning("oh fucc");
         previousPortal = targetPortal;
         targetPortal = newTargetPortal;
         Debug.Log("Changed target portal to " + newTargetPortal.ToString());
@@ -61,7 +67,6 @@ public class TeleportManager : MonoBehaviour
 
     public void ChangeTargetPortalString(string newTargetPortal)
     {
-        Debug.LogWarning("oh fucc1");
         previousPortal = targetPortal;
         targetPortal = (PortalLocation)System.Enum.Parse(typeof(PortalLocation), newTargetPortal); ;
         Debug.Log("Changed target portal to " + newTargetPortal.ToString());
@@ -73,6 +78,7 @@ public class TeleportManager : MonoBehaviour
         {
             
             TeleportPlayer(teleportObject);
+           
         }
 
         else if (canTeleportObject && !teleportObject.CompareTag("Controller"))
@@ -91,98 +97,110 @@ public class TeleportManager : MonoBehaviour
 
     void TeleportPlayer(GameObject teleportObject)
     {
+        StartCoroutine(gameUI.TeleportCanvas(teleportObject));
+          
+    }
 
-            Quaternion relativeRotation = Quaternion.identity;
-            switch (targetPortal)
-            {
-                case PortalLocation.portalRoom:
-                    if (portalRoomInteractor.playerTeleportPoint != null)
-                    {
-                        teleportObject.transform.position = portalRoomInteractor.playerTeleportPoint.position;
-                        relativeRotation = portalRoomInteractor.playerTeleportPoint.transform.localRotation; //Quaternion.Inverse(teleportObject.transform.rotation) * 
+    public void ValidTeleportPlayer(GameObject teleportObject)
+    {
+        nPCHeadLook.NewQuip();
+        Quaternion relativeRotation = Quaternion.identity;
+        switch (targetPortal)
+        {
+            case PortalLocation.portalRoom:
+                if (portalRoomInteractor.playerTeleportPoint != null)
+                {
+                    teleportObject.transform.position = portalRoomInteractor.playerTeleportPoint.position;
+                    relativeRotation = portalRoomInteractor.playerTeleportPoint.transform.localRotation; //Quaternion.Inverse(teleportObject.transform.rotation) * 
+                  //  gameManager.ChangeAreaStats(PortalLocation.portalRoom);
                 }
 
-                    else
-                    {
-                        Debug.LogError("Could not find portal room");
-                    }
-
-                    break;
-                case PortalLocation.Lab:
-                    if (labPortalInteractor.playerTeleportPoint != null)
-                    {
-                        teleportObject.transform.position = labPortalInteractor.playerTeleportPoint.position;
-                        relativeRotation = labPortalInteractor.playerTeleportPoint.transform.localRotation; //Quaternion.Inverse(teleportObject.transform.rotation) * 
+                else
+                {
+                    Debug.LogError("Could not find portal room");
                 }
 
-                    else
-                    {
-                        Debug.LogError("Could not find lab portal");
-                    }
-
-                    break;
-                case PortalLocation.Park:
-                    if (parkPortalInteractor.playerTeleportPoint != null)
-                    {
-                        teleportObject.transform.position = parkPortalInteractor.playerTeleportPoint.position;
-                        relativeRotation =  parkPortalInteractor.playerTeleportPoint.transform.localRotation;//Quaternion.Inverse(teleportObject.transform.rotation) *
-                }
-
-                    else
-                    {
-                        Debug.LogError("Could not find park portal");
-                    }
-
-                    break;
-                case PortalLocation.Rooftop:
-                    if (rooftopPortalInteractor.playerTeleportPoint != null)
-                    {
-                        teleportObject.transform.position = rooftopPortalInteractor.playerTeleportPoint.position;
-                        relativeRotation = rooftopPortalInteractor.playerTeleportPoint.transform.localRotation;// Quaternion.Inverse(teleportObject.transform.rotation) *
-                }
-
-                    else
-                    {
-                        Debug.LogError("Could not find rooftop portal");
-                    }
-
-                    break;
-                case PortalLocation.Space:
-                    if (spacePortalInteractor != null)
-                    {
-                        teleportObject.transform.position = spacePortalInteractor.playerTeleportPoint.transform.position;
-                        relativeRotation = spacePortalInteractor.playerTeleportPoint.transform.localRotation;//Quaternion.Inverse(teleportObject.transform.rotation) * 
-                }
-
-                    else
-                    {
-                        Debug.LogError("Could not find space portal");
-                    }
-
-                    break;
-                case PortalLocation.DebugMode:
-                    if (debugModePortalInteractor.playerTeleportPoint != null)
-                    {
-                        teleportObject.transform.position = debugModePortalInteractor.playerTeleportPoint.position;
-                        relativeRotation = debugModePortalInteractor.playerTeleportPoint.transform.localRotation;//Quaternion.Inverse(teleportObject.transform.rotation) * 
-                }
-
-                    else
-                    {
-                        Debug.LogError("Could not find debug portal");
-                    }
-
-                    break;
-                default:
-                    Debug.LogError("Could not find any teleporter reference");
-                    relativeRotation =  debugModePortalInteractor.playerTeleportPoint.transform.localRotation;//Quaternion.Inverse(teleportObject.transform.rotation) *
                 break;
-            }
+            case PortalLocation.Lab:
+                if (labPortalInteractor.playerTeleportPoint != null)
+                {
+                    teleportObject.transform.position = labPortalInteractor.playerTeleportPoint.position;
+                    relativeRotation = labPortalInteractor.playerTeleportPoint.transform.localRotation; //Quaternion.Inverse(teleportObject.transform.rotation) * 
+                   // gameManager.ChangeAreaStats(PortalLocation.Lab);
+                }
 
+                else
+                {
+                    Debug.LogError("Could not find lab portal");
+                }
+
+                break;
+            case PortalLocation.Park:
+                if (parkPortalInteractor.playerTeleportPoint != null)
+                {
+                    teleportObject.transform.position = parkPortalInteractor.playerTeleportPoint.position;
+                    relativeRotation = parkPortalInteractor.playerTeleportPoint.transform.localRotation;//Quaternion.Inverse(teleportObject.transform.rotation) *
+                   // gameManager.ChangeAreaStats(PortalLocation.Park);
+                }
+
+                else
+                {
+                    Debug.LogError("Could not find park portal");
+                }
+
+                break;
+            case PortalLocation.Rooftop:
+                if (rooftopPortalInteractor.playerTeleportPoint != null)
+                {
+                    teleportObject.transform.position = rooftopPortalInteractor.playerTeleportPoint.position;
+                    relativeRotation = rooftopPortalInteractor.playerTeleportPoint.transform.localRotation;// Quaternion.Inverse(teleportObject.transform.rotation) *
+                   // gameManager.ChangeAreaStats(PortalLocation.Rooftop);
+                }
+
+                else
+                {
+                    Debug.LogError("Could not find rooftop portal");
+                }
+
+                break;
+            case PortalLocation.Space:
+                if (spacePortalInteractor != null)
+                {
+                    teleportObject.transform.position = spacePortalInteractor.playerTeleportPoint.transform.position;
+                    relativeRotation = spacePortalInteractor.playerTeleportPoint.transform.localRotation;//Quaternion.Inverse(teleportObject.transform.rotation) * 
+                   // gameManager.ChangeAreaStats(PortalLocation.Space);
+                }
+
+                else
+                {
+                    Debug.LogError("Could not find space portal");
+                }
+
+                break;
+            case PortalLocation.DebugMode:
+                if (debugModePortalInteractor.playerTeleportPoint != null)
+                {
+                    teleportObject.transform.position = debugModePortalInteractor.playerTeleportPoint.position;
+                    relativeRotation = debugModePortalInteractor.playerTeleportPoint.transform.localRotation;//Quaternion.Inverse(teleportObject.transform.rotation) * 
+                }
+
+                else
+                {
+                    Debug.LogError("Could not find debug portal");
+                }
+
+                break;
+            default:
+                Debug.LogError("Could not find any teleporter reference");
+                relativeRotation = debugModePortalInteractor.playerTeleportPoint.transform.localRotation;//Quaternion.Inverse(teleportObject.transform.rotation) *
+                break;
+        }
+        currentPortal = targetPortal;
+      //  gameManager.ChangeAreaStats(currentPortal);
         //  rigidbody.velocity = (relativeRotation * rigidbody.velocity * 2);
         Quaternion rot180degrees = Quaternion.Euler(-teleportObject.transform.rotation.eulerAngles);
-            teleportObject.transform.rotation = relativeRotation;
-        gameManager.ChangeAreaStats();
+        teleportObject.transform.rotation = relativeRotation;
+   
 
 
         if (debugMode)
@@ -190,7 +208,6 @@ public class TeleportManager : MonoBehaviour
             Debug.Log("Teleported " + teleportObject.name + " to the " + targetPortal.ToString());
         }
     }
-
     void TeleportObject(GameObject teleportObject)
     {
         if (teleportObject.TryGetComponent(out Rigidbody rigidbody))

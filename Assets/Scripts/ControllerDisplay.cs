@@ -38,6 +38,7 @@ public class ControllerDisplay : MonoBehaviour
           
         }
         ChangeHand();
+        gameManager.NewScore(gameManager.objectsFlipped);
     }
 
     public enum ControlSchemes

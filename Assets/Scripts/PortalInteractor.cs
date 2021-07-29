@@ -230,7 +230,13 @@ public class PortalInteractor : XRBaseInteractable
         {
             if (targetPortalOverride != TeleportManager.PortalLocation.Null)
             {
+                teleportManager.gameManager.currentLocation = TeleportManager.PortalLocation.portalRoom;
                 teleportManager.ChangeTargetPortal(targetPortalOverride);
+            }
+
+            else
+            {
+                teleportManager.gameManager.currentLocation = teleportManager.targetPortal;
             }
             onPlayerInteract.Invoke();
         }
@@ -275,15 +281,19 @@ public class PortalInteractor : XRBaseInteractable
             TeleportManager.PortalLocation originalPortalLocation = teleportManager.targetPortal;
             if (targetPortalOverride != TeleportManager.PortalLocation.Null)
             {
-                Debug.Log(targetPortalOverride);
+                teleportManager.gameManager.currentLocation = TeleportManager.PortalLocation.portalRoom;
                 teleportManager.ChangeTargetPortal(targetPortalOverride);
             }
-            wasSelected = true;
-            onPlayerInteract.Invoke();
-            if(originalPortalLocation != teleportManager.targetPortal )
+
+            else
             {
-                teleportManager.ChangeTargetPortal(originalPortalLocation);
+                teleportManager.gameManager.currentLocation = teleportManager.targetPortal;
             }
+            wasSelected = true;
+            //teleportManager.gameManager.ChangeAreaStats(teleportManager.targetPortal);
+            onPlayerInteract.Invoke();
+            teleportManager.originalPortal = originalPortalLocation;
+            
         }
     }
 

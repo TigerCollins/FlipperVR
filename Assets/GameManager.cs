@@ -19,8 +19,9 @@ public class GameManager : MonoBehaviour
     [Header("other")]
     [SerializeField]
     AreaDetails[] areaDetails;
+    public TeleportManager.PortalLocation currentLocation;  
     [SerializeField]
-    TeleportManager.PortalLocation currentLocation;
+    TeleportManager.PortalLocation previousLocation;
     [Header("Controllers")]
     [SerializeField]
     internal ControllerDisplay leftController;
@@ -31,14 +32,29 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
- 
+      
     }
 
-    public void ChangeAreaStats()
+    private void Update()
     {
+        if(previousLocation != currentLocation)
+        {
+            previousLocation = currentLocation;
+            ChangeAreaStats(currentLocation);
+        }
+    }
+
+    private void Start()
+    {
+        objectsFlipped = PlayerPrefs.GetInt("objectsFlipped");
+
+    }
+    public void ChangeAreaStats(TeleportManager.PortalLocation newPortal)
+    {
+        Debug.Log(newPortal.ToString());
         for (int i = 0; i < areaDetails.Length; i++)
         {
-            if(areaDetails[i].name==teleportManager.targetPortal.ToString())
+            if(areaDetails[i].name==newPortal.ToString())
             {
                 Physics.gravity = areaDetails[i].customGravityValue;
                 currentAreaMultiplier = areaDetails[i].areaMultiplier;
@@ -60,6 +76,7 @@ public class GameManager : MonoBehaviour
     public void NewScore(int score)
     {
         rightController.scoreDisplay.text = score.ToString();
+        PlayerPrefs.SetInt("objectsFlipped", score);
     }
 }
 
